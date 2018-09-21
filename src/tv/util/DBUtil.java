@@ -24,6 +24,10 @@ public class DBUtil {
 		return connection;
 	}
 
+	/*
+	 * Shouldn't need to call this if getConnection() called
+	 * within try-with-resources
+	 */
 	public static void closeConnection() throws SQLException {
 		if (connection != null) {
 			try {
