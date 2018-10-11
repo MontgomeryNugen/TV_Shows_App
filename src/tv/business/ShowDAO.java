@@ -8,5 +8,5 @@ public interface ShowDAO {
     List<Show> getAll();
     boolean add(Show s);
     boolean update(Show s);
-    boolean delete(Show s);
+    boolean delete(int id);
 }

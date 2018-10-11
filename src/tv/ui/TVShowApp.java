@@ -14,7 +14,7 @@ public class TVShowApp {
 		System.out.println("Welcome to the TV Show DB App!\n");
 		ShowDB showDB = new ShowDB();
 		String command = "";
-		while (!command.equalsIgnoreCase("3")) {
+		while (!command.equalsIgnoreCase("99")) {
 			displayMenu();
 
 			command = Console.getString("Enter Command: ");
@@ -31,19 +31,38 @@ public class TVShowApp {
 				if (criteria.equalsIgnoreCase("g")) {
 					String genre = Console.getString("What type of genre? Comedy, Sci-Fi, Action, Drama? ");
 					shows = showDB.get(genre);
-
 				} else if (criteria.equalsIgnoreCase("l")) {
 					int length = Console.getInt("Enter show length: 30, 60, or 90? ");
 					shows = showDB.get(length);
-
 				}
 
-				System.out.println("Result of serach: ");
+				System.out.println("Result of search: ");
 				for (Show s : shows) {
 					System.out.println(s);
 				}
 
-			} else if (!command.equals("3")) {
+			} else if (command.equals("3")) {
+
+				int id = Console.getInt("Enter show ID: ");
+				String name = Console.getString("Enter show Name: ");
+				String rating = Console.getString("Enter show Rating: ");
+				int length = Console.getInt("Enter show length: 30, 60, or 90? ");
+				String genre = Console.getString("Enter show Genre: ");
+				String network = Console.getString("Enter show Network: ");
+
+				Show s = new Show(id, name, rating, length, genre, network);
+				showDB.add(s);
+				System.out.println();
+
+			} else if (command.equals("4")) {
+
+				int id = Console.getInt("Enter show ID to Delete: ");
+
+				//Show s = new Show(id);
+				showDB.delete(id);
+				System.out.println();
+
+			} else if (!command.equals("99")) {
 				System.out.println("Invalid Command. Try Again.\n");
 			}
 		}
@@ -56,7 +75,9 @@ public class TVShowApp {
 		sb.append("Command Menu\n");
 		sb.append("1 - List TV Shows\n");
 		sb.append("2 - List TV Shows by Genre or Length\n");
-		sb.append("3 - Exit Program\n");
+		sb.append("3 - Add TV Show\n");
+		sb.append("4 - Delete TV Show\n");
+		sb.append("99 - Exit Program\n");
 		System.out.println(sb);
 	}
 }

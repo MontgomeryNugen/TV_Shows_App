@@ -82,8 +82,23 @@ public class ShowDB implements ShowDAO {
 
 	@Override
 	public boolean add(Show s) {
-		System.out.println("Not yet implemented.");
-		return false;
+		String sql = "INSERT INTO tvshow (id, name, rating, length, genre, network)" + 
+				"VALUES (?, ?, ?, ?, ?, ?)";
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setInt(1, s.getId());
+			ps.setString(2, s.getName());
+			ps.setString(3, s.getRating());
+			ps.setInt(4, s.getLength());
+			ps.setString(5, s.getGenre());
+			ps.setString(6, s.getNetwork());
+			ps.executeUpdate();
+			return true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -93,9 +108,18 @@ public class ShowDB implements ShowDAO {
 	}
 
 	@Override
-	public boolean delete(Show s) {
-		System.out.println("Not yet implemented.");
-		return false;
+	public boolean delete(int id) {
+		String sql = "DELETE FROM tvshow WHERE id = ?";
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setInt(1, s.getId());
+			ps.executeUpdate();
+			return true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
